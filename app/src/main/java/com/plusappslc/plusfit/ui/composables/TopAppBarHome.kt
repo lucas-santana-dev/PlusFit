@@ -15,7 +15,9 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarHome() {
+fun TopAppBarHome(
+    onDrawerState : () -> Unit
+) {
     val empresaFantasia = "GymPlus Fit"
     CenterAlignedTopAppBar(
         title = {
@@ -26,7 +28,7 @@ fun TopAppBarHome() {
             )
         },
         navigationIcon = {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { onDrawerState() }) {
                 Icon(
                     imageVector = Icons.Filled.Menu,
                     contentDescription = "Menu Lateral"
