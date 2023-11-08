@@ -1,4 +1,32 @@
 <resources>
     <string name="app_name">PlusFit</string>
-    <string name="title_activity_login_screen">LoginScreen</string>
+
+    <string name="abc_logo_text_plus">Plus</string>
+    <string name="abc_logo_text_fit">Fit</string>
+    <string name="abc_email">Email:</string>
+    <string name="abc_senha">Senha:</string>
+    <string name="abc_nao_consegue_acessar">Não consegue acessar?</string>
+    <string name="abc_entrar">Entrar</string>
+    <string name="abc_ainda_nao_tem_conta">Ainda não tem uma conta?</string>
+    <string name="abc_registrese_agora">Registre-se agora!</string>
+    <string name="abc_bem_vindo_de_volta">Bem vindo de volta</string>
+    <string name="abc_mensalidades_pendentes">Mensalidades Pendentes</string>
+    <string name="abc_vender">Realizar Venda</string>
+    <string name="abc_treinos_vencendo">Treinos Vencendo</string>
+    <string name="abc_aniversariantes_do_mes">Aniversáriantes do Mês</string>
+    <string name="abc_aula_experimental">Aula Exeprimental</string>
+
+
+
+
+
+    <!--Descrição de conteudo-->
+    <string name="descricao_icone_logotipo">Icone de um halter repesentando um centro fisico ou academia</string>
+    <string name="descricao_campo_email">Campo de Email</string>
+    <string name="descricao_campo_senha">Campo de Senha</string>
+    <string name="descricao_campo_senha_ocultada">Senha ocultada</string>
+    <string name="descricao_campo_senha_visivel">Senha visivel</string>
+    <string name="descricao_menu_lateral">Menu Lateral</string>
+    <string name="descricao_notificacoes">Notificações</string>
+
 </resources>

@@ -24,10 +24,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.plusappslc.plusfit.R
 import com.plusappslc.plusfit.ui.composables.BottomAppBarHome
 import com.plusappslc.plusfit.ui.composables.GridInicial
 import com.plusappslc.plusfit.ui.composables.MenuLateral
@@ -77,7 +79,7 @@ fun HomeScreen() {
             ) {
                 Column(modifier = Modifier.padding(10.dp)) {
                     Text(
-                        text = "Bem vindo de volta",
+                        text = stringResource(id = R.string.abc_bem_vindo_de_volta),
                         fontSize = 24.sp
                     )
                     Text(

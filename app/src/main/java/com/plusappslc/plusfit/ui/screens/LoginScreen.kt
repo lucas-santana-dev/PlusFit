@@ -32,12 +32,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.plusappslc.plusfit.R
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -63,7 +65,7 @@ fun LoginScreen() {
             ) {
                 Icon(
                     imageVector = Icons.Filled.FitnessCenter,
-                    contentDescription = "Icone de Centro Fitness",
+                    contentDescription = stringResource(id = R.string.descricao_icone_logotipo),
                     tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(75.dp)
                 )
@@ -72,13 +74,13 @@ fun LoginScreen() {
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = "Plus",
+                        text = stringResource(id = R.string.abc_logo_text_plus),
                         fontWeight = FontWeight.Bold,
                         fontSize = 32.sp,
                         color = MaterialTheme.colorScheme.primary
                     )
                     Text(
-                        text = "Fit",
+                        text = stringResource(id = R.string.abc_logo_text_fit),
                         fontWeight = FontWeight.Light,
                         fontSize = 32.sp
                     )
@@ -93,36 +95,48 @@ fun LoginScreen() {
                     .fillMaxWidth()
             ) {
                 OutlinedTextField(
-                    label = { Text(text = "Email:") },
+                    label = { Text(text = stringResource(id = R.string.abc_email)) },
                     value = email,
-                    onValueChange = {newEmail->
+                    onValueChange = { newEmail ->
                         email = newEmail
                     },
                     singleLine = true,
                     leadingIcon = {
-                        Icon(imageVector = Icons.Filled.Email, contentDescription = "Email")
+                        Icon(
+                            imageVector = Icons.Filled.Email, contentDescription = stringResource(
+                                id = R.string.descricao_campo_email
+                            )
+                        )
                     },
                     trailingIcon = {}
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 OutlinedTextField(
-                    label = { Text(text = "Senha:") },
+                    label = { Text(text = stringResource(id = R.string.abc_senha)) },
                     value = password,
-                    onValueChange = {newPassword->
+                    onValueChange = { newPassword ->
                         password = newPassword
                     },
                     singleLine = true,
                     leadingIcon = {
-                        Icon(imageVector = Icons.Filled.Password, contentDescription = "Senha")
+                        Icon(imageVector = Icons.Filled.Password, contentDescription = stringResource(
+                            id = R.string.descricao_campo_senha
+                        ))
                     },
                     visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     trailingIcon = {
-                        IconButton(onClick = { passwordVisible =!passwordVisible }) {
-                          if(!passwordVisible){
-                              Icon(imageVector = Icons.Filled.VisibilityOff, contentDescription = "Senha ocultada" )
-                          }else(
-                                  Icon(imageVector = Icons.Filled.Visibility, contentDescription = "Senha Visivel" )
-                          )
+                        IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                            if (!passwordVisible) {
+                                Icon(
+                                    imageVector = Icons.Filled.VisibilityOff,
+                                    contentDescription = stringResource(id = R.string.descricao_campo_senha_ocultada)
+                                )
+                            } else (
+                                    Icon(
+                                        imageVector = Icons.Filled.Visibility,
+                                        contentDescription = stringResource(id = R.string.descricao_campo_senha_visivel)
+                                    )
+                                    )
                         }
                     }
                 )
@@ -138,7 +152,7 @@ fun LoginScreen() {
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     TextButton(onClick = { /*TODO*/ }) {
-                        Text(text = "Não consegue acessar?")
+                        Text(text = stringResource(id = R.string.abc_nao_consegue_acessar))
                     }
                 }
             }
@@ -146,16 +160,16 @@ fun LoginScreen() {
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { /*TODO*/ }
             ) {
-                Text(text = "Entrar")
+                Text(text = stringResource(id = R.string.abc_entrar))
             }
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Text(text = "Ainda não tem uma conta?")
+                Text(text = stringResource(id = R.string.abc_ainda_nao_tem_conta))
                 TextButton(
                     onClick = { /*TODO*/ },
                 ) {
-                    Text(text = "Registre-se agora!")
+                    Text(text = stringResource(id = R.string.abc_registrese_agora))
                 }
             }
 

@@ -7,10 +7,10 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.plusappslc.plusfit.R
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -18,20 +18,15 @@ import androidx.compose.ui.tooling.preview.Preview
 fun TopAppBarHome(
     onDrawerState : () -> Unit
 ) {
-    val empresaFantasia = "GymPlus Fit"
     CenterAlignedTopAppBar(
         title = {
-            Text(
-                empresaFantasia,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+
         },
         navigationIcon = {
             IconButton(onClick = { onDrawerState() }) {
                 Icon(
                     imageVector = Icons.Filled.Menu,
-                    contentDescription = "Menu Lateral"
+                    contentDescription = stringResource(id = R.string.descricao_menu_lateral)
                 )
             }
         },
@@ -39,7 +34,7 @@ fun TopAppBarHome(
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     imageVector = Icons.Filled.Notifications,
-                    contentDescription = "Notificações",
+                    contentDescription = stringResource(id = R.string.descricao_notificacoes),
                 )
             }
         }
