@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.plusappslc.plusfit.R
 import com.plusappslc.plusfit.ui.composables.BottomAppBarHome
 import com.plusappslc.plusfit.ui.composables.GridInicial
@@ -40,7 +41,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3WindowSizeClassApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val context = LocalContext.current
     val windowSizeClass = calculateWindowSizeClass(context as Activity)
@@ -66,11 +67,12 @@ fun HomeScreen() {
                         scope.launch {
                             drawerState.open()
                         }
-                    }
+                    },
+                    title = null
                 )
             },
             bottomBar = {
-                BottomAppBarHome()
+                BottomAppBarHome(navController)
             },
         ) { innerPadding ->
             Column(
@@ -95,10 +97,6 @@ fun HomeScreen() {
         }
     }
 }
-
-
-
-
 
 
 @Preview

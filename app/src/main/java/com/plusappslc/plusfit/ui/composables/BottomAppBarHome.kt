@@ -13,10 +13,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import com.plusappslc.plusfit.navigation.Destinations
 
 
 @Composable
-fun BottomAppBarHome() {
+fun BottomAppBarHome(navController: NavController) {
 
     BottomAppBar(
         actions = {
@@ -33,10 +35,10 @@ fun BottomAppBarHome() {
                 )
             }
             IconButton(
-                onClick = { /* do something */ }) {
+                onClick = { navController.navigate(Destinations.CadastroVisitanteScreen.route) }) {
                 Icon(
                     Icons.Filled.PersonAddAlt1,
-                    contentDescription = "Cadastrar Professor",
+                    contentDescription = "Cadastrar visitante",
                 )
             }
         },

@@ -4,6 +4,9 @@
     <string name="abc_logo_text_plus">Plus</string>
     <string name="abc_logo_text_fit">Fit</string>
     <string name="abc_email">Email:</string>
+    <string name="abc_nome">Nome:</string>
+    <string name="abc_sobrenome">Sobrenome:</string>
+    <string name="abc_contato">Contato:</string>
     <string name="abc_senha">Senha:</string>
     <string name="abc_nao_consegue_acessar">Não consegue acessar?</string>
     <string name="abc_entrar">Entrar</string>
@@ -28,5 +31,7 @@
     <string name="descricao_campo_senha_visivel">Senha visivel</string>
     <string name="descricao_menu_lateral">Menu Lateral</string>
     <string name="descricao_notificacoes">Notificações</string>
+    <string name="descricao_nome_aluno_visitante">Nome do visitante</string>
+    <string name="descricao_sobrenome_aluno_visitante">Sobrenome do visitante</string>
 
 </resources>

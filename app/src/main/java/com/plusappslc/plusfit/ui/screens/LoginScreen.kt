@@ -39,12 +39,15 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.plusappslc.plusfit.R
+import com.plusappslc.plusfit.navigation.Destinations
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navController: NavController) {
 
     var passwordVisible by remember { mutableStateOf(false) }
     var password by rememberSaveable { mutableStateOf("") }
@@ -119,9 +122,12 @@ fun LoginScreen() {
                     },
                     singleLine = true,
                     leadingIcon = {
-                        Icon(imageVector = Icons.Filled.Password, contentDescription = stringResource(
-                            id = R.string.descricao_campo_senha
-                        ))
+                        Icon(
+                            imageVector = Icons.Filled.Password,
+                            contentDescription = stringResource(
+                                id = R.string.descricao_campo_senha
+                            )
+                        )
                     },
                     visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     trailingIcon = {
@@ -158,7 +164,9 @@ fun LoginScreen() {
             }
             Button(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { /*TODO*/ }
+                onClick = {
+                    navController.navigate(Destinations.HomeScreen.route)
+                }
             ) {
                 Text(text = stringResource(id = R.string.abc_entrar))
             }
@@ -167,7 +175,7 @@ fun LoginScreen() {
             ) {
                 Text(text = stringResource(id = R.string.abc_ainda_nao_tem_conta))
                 TextButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { },
                 ) {
                     Text(text = stringResource(id = R.string.abc_registrese_agora))
                 }
@@ -181,5 +189,6 @@ fun LoginScreen() {
 @Preview
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen()
+    val navController = rememberNavController()
+    LoginScreen(navController)
 }
