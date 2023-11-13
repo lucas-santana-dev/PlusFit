@@ -4,9 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.plusappslc.plusfit.ui.screens.CadastroVisitanteScreen
-import com.plusappslc.plusfit.ui.screens.HomeScreen
-import com.plusappslc.plusfit.ui.screens.LoginScreen
+import com.plusappslc.plusfit.ui.screens.cadastrousuario.CadastroUsuarioSceen
+import com.plusappslc.plusfit.ui.screens.cadastrovisitante.CadastroVisitanteScreen
+import com.plusappslc.plusfit.ui.screens.homescreen.HomeScreen
+import com.plusappslc.plusfit.ui.screens.loginscreen.LoginScreen
 
 @Composable
 fun NavHost() {
@@ -26,6 +27,9 @@ fun NavHost() {
 
         composable(Destinations.CadastroVisitanteScreen.route){
             CadastroVisitanteScreen(navController = navController)
+        }
+        composable(Destinations.CadastroVisitanteScreen.route){
+            CadastroUsuarioSceen(navController = navController)
         }
     }
 }

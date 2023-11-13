@@ -1,4 +1,4 @@
-package com.plusappslc.plusfit.ui.screens
+package com.plusappslc.plusfit.ui.screens.homescreen
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -37,7 +37,7 @@ import com.plusappslc.plusfit.ui.composables.MenuLateral
 import com.plusappslc.plusfit.ui.composables.TopAppBarHome
 import kotlinx.coroutines.launch
 
-
+private  const val TAG = "HomeScreen"
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3WindowSizeClassApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

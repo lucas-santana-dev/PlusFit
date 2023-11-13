@@ -1,4 +1,4 @@
-package com.plusappslc.plusfit.ui.screens
+package com.plusappslc.plusfit.ui.screens.cadastrovisitante
 
 import android.annotation.SuppressLint
 import android.app.Activity

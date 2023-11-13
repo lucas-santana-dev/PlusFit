@@ -1,4 +1,4 @@
-package com.plusappslc.plusfit.ui.screens
+package com.plusappslc.plusfit.ui.screens.cadastrousuario
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.FitnessCenter
@@ -23,7 +24,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,25 +34,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.plusappslc.plusfit.R
-import com.plusappslc.plusfit.navigation.Destinations
-
+import com.plusappslc.plusfit.repository.FirebaseAuthRepository
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun LoginScreen(navController: NavController) {
+fun CadastroUsuarioSceen(navController: NavController) {
 
-    var passwordVisible by remember { mutableStateOf(false) }
-    var password by rememberSaveable { mutableStateOf("") }
-    var email by rememberSaveable { mutableStateOf("") }
-
+    val viewmodel = CadastroUsuarioViewModel()
 
     Scaffold {
         Column(
@@ -89,7 +85,20 @@ fun LoginScreen(navController: NavController) {
                     )
                 }
             }
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
 
+                Text(
+                    text = stringResource(id = R.string.abc_mensagem_tela_cadastro),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 12.sp,
+                    color = MaterialTheme.colorScheme.primary,
+                    textAlign = TextAlign.Center
+                )
+
+
+            }
             Spacer(modifier = Modifier.height(16.dp))
 
             Column(
@@ -99,9 +108,15 @@ fun LoginScreen(navController: NavController) {
             ) {
                 OutlinedTextField(
                     label = { Text(text = stringResource(id = R.string.abc_email)) },
-                    value = email,
+                    value = viewmodel.email.value,
                     onValueChange = { newEmail ->
-                        email = newEmail
+                        // Atualiza o valor do e-mail
+                        viewmodel.email.value = newEmail
+                        if (viewmodel.isValidEmail(newEmail)) {
+                            viewmodel.emailError.value = false
+                        } else {
+                            viewmodel.emailError.value = true
+                        }
                     },
                     singleLine = true,
                     leadingIcon = {
@@ -111,14 +126,19 @@ fun LoginScreen(navController: NavController) {
                             )
                         )
                     },
-                    trailingIcon = {}
+                    trailingIcon = {},
+                    isError = viewmodel.emailError.value,
+                    visualTransformation = VisualTransformation.None,
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Done
+                    ),
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 OutlinedTextField(
                     label = { Text(text = stringResource(id = R.string.abc_senha)) },
-                    value = password,
+                    value = viewmodel.password.value,
                     onValueChange = { newPassword ->
-                        password = newPassword
+                        viewmodel.password.value = newPassword
                     },
                     singleLine = true,
                     leadingIcon = {
@@ -129,66 +149,76 @@ fun LoginScreen(navController: NavController) {
                             )
                         )
                     },
-                    visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                    visualTransformation = if (viewmodel.passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
                     trailingIcon = {
-                        IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                            if (!passwordVisible) {
+                        IconButton(onClick = { viewmodel.passwordVisible.value = !viewmodel.passwordVisible.value }) {
+                            if (!viewmodel.passwordVisible.value) {
                                 Icon(
                                     imageVector = Icons.Filled.VisibilityOff,
                                     contentDescription = stringResource(id = R.string.descricao_campo_senha_ocultada)
                                 )
-                            } else (
-                                    Icon(
-                                        imageVector = Icons.Filled.Visibility,
-                                        contentDescription = stringResource(id = R.string.descricao_campo_senha_visivel)
-                                    )
-                                    )
+                            } else {
+                                Icon(
+                                    imageVector = Icons.Filled.Visibility,
+                                    contentDescription = stringResource(id = R.string.descricao_campo_senha_visivel)
+                                )
+                            }
+
                         }
                     }
                 )
-                Spacer(modifier = Modifier.height(5.dp))
-            }
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.End,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    TextButton(onClick = { /*TODO*/ }) {
-                        Text(text = stringResource(id = R.string.abc_nao_consegue_acessar))
+                Spacer(modifier = Modifier.height(10.dp))
+                OutlinedTextField(
+                    label = { Text(text = stringResource(id = R.string.abc_confirme_senha)) },
+                    value = viewmodel.passwordConfirmation.value,
+                    onValueChange = { newPassword ->
+                        viewmodel.passwordConfirmation.value = newPassword
+                        if (viewmodel.passwordConfirmation.value != viewmodel.password.value) {
+                            viewmodel.passwordError.value = true
+                        } else {
+                            viewmodel.passwordError.value = false
+                        }
+                    },
+                    isError = viewmodel.passwordError.value,
+                    singleLine = true,
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Filled.Password,
+                            contentDescription = stringResource(
+                                id = R.string.descricao_campo_senha
+                            )
+                        )
+                    },
+                    visualTransformation = if (viewmodel.passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
+                    trailingIcon = {
+                        IconButton(onClick = { viewmodel.passwordVisible.value = !viewmodel.passwordVisible.value }) {
+                            if (!viewmodel.passwordVisible.value) {
+                                Icon(
+                                    imageVector = Icons.Filled.VisibilityOff,
+                                    contentDescription = stringResource(id = R.string.descricao_campo_senha_ocultada)
+                                )
+                            } else {
+                                Icon(
+                                    imageVector = Icons.Filled.Visibility,
+                                    contentDescription = stringResource(id = R.string.descricao_campo_senha_visivel)
+                                )
+                            }
+                        }
                     }
-                }
+                )
+                Spacer(modifier = Modifier.height(10.dp))
             }
+
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
-                    navController.navigate(Destinations.HomeScreen.route)
+                    viewmodel.cadastrarUsuario()
                 }
             ) {
-                Text(text = stringResource(id = R.string.abc_entrar))
+                Text(text = stringResource(id = R.string.abc_cadastrar))
             }
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text(text = stringResource(id = R.string.abc_ainda_nao_tem_conta))
-                TextButton(
-                    onClick = { },
-                ) {
-                    Text(text = stringResource(id = R.string.abc_registrese_agora))
-                }
-            }
-
 
         }
     }
-}
 
-@Preview
-@Composable
-fun LoginScreenPreview() {
-    val navController = rememberNavController()
-    LoginScreen(navController)
 }

@@ -2,14 +2,17 @@
     <string name="app_name">PlusFit</string>
 
     <string name="abc_logo_text_plus">Plus</string>
+    <string name="abc_mensagem_tela_cadastro">Para realizar seu cadastro preencha corretamente os campos abaixo:</string>
     <string name="abc_logo_text_fit">Fit</string>
     <string name="abc_email">Email:</string>
     <string name="abc_nome">Nome:</string>
     <string name="abc_sobrenome">Sobrenome:</string>
     <string name="abc_contato">Contato:</string>
     <string name="abc_senha">Senha:</string>
+    <string name="abc_confirme_senha">Confirme sua senha:</string>
     <string name="abc_nao_consegue_acessar">Não consegue acessar?</string>
     <string name="abc_entrar">Entrar</string>
+    <string name="abc_cadastrar">Cadastrar</string>
     <string name="abc_ainda_nao_tem_conta">Ainda não tem uma conta?</string>
     <string name="abc_registrese_agora">Registre-se agora!</string>
     <string name="abc_bem_vindo_de_volta">Bem vindo de volta</string>
