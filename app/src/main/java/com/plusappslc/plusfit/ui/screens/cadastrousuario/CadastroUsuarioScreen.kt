@@ -23,15 +23,18 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -42,15 +45,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.plusappslc.plusfit.R
-import com.plusappslc.plusfit.repository.FirebaseAuthRepository
+import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun CadastroUsuarioSceen(navController: NavController) {
+    val viewmodel = koinViewModel<CadastroUsuarioViewModel>()
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        }
+    ) {
 
-    val viewmodel = CadastroUsuarioViewModel()
-
-    Scaffold {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -151,7 +161,9 @@ fun CadastroUsuarioSceen(navController: NavController) {
                     },
                     visualTransformation = if (viewmodel.passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
                     trailingIcon = {
-                        IconButton(onClick = { viewmodel.passwordVisible.value = !viewmodel.passwordVisible.value }) {
+                        IconButton(onClick = {
+                            viewmodel.passwordVisible.value = !viewmodel.passwordVisible.value
+                        }) {
                             if (!viewmodel.passwordVisible.value) {
                                 Icon(
                                     imageVector = Icons.Filled.VisibilityOff,
@@ -191,7 +203,9 @@ fun CadastroUsuarioSceen(navController: NavController) {
                     },
                     visualTransformation = if (viewmodel.passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
                     trailingIcon = {
-                        IconButton(onClick = { viewmodel.passwordVisible.value = !viewmodel.passwordVisible.value }) {
+                        IconButton(onClick = {
+                            viewmodel.passwordVisible.value = !viewmodel.passwordVisible.value
+                        }) {
                             if (!viewmodel.passwordVisible.value) {
                                 Icon(
                                     imageVector = Icons.Filled.VisibilityOff,
@@ -212,7 +226,32 @@ fun CadastroUsuarioSceen(navController: NavController) {
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
-                    viewmodel.cadastrarUsuario()
+                    viewmodel.cadastrarUsuario().observe(lifecycleOwner) {
+                        it?.let { recurso ->
+                            if (recurso.dado) {
+                                navController.popBackStack()
+                                scope.launch {
+                                    snackbarHostState
+                                        .showSnackbar(
+                                            message = "Cadastro Realizado com sucesso",
+                                            actionLabel = "Ok!",
+                                            duration = SnackbarDuration.Short
+                                        )
+                                }
+                            } else {
+                                val mensagemError = recurso.erro
+                                    ?: "Ocorreu um erro ao tentar realizar seu registro tente novamente"
+                                scope.launch {
+                                    snackbarHostState
+                                        .showSnackbar(
+                                            message = mensagemError,
+                                            actionLabel = "Ok!",
+                                            duration = SnackbarDuration.Short
+                                        )
+                                }
+                            }
+                        }
+                    }
                 }
             ) {
                 Text(text = stringResource(id = R.string.abc_cadastrar))
