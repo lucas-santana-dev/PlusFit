@@ -10,9 +10,9 @@ data class Aluno (
     val id: Long = 0L,
     val nome: String = "",
     val Sobrenome: String? = "",
-    val dataNascimento: Date,
+    val dataNascimento: Date? = null,
     val rg: String? = "",
     val cfp: String? = "",
-    val dataInicio: Date,
+    val dataInicio: Date = Date(),
     val status: Boolean = true,
 )
