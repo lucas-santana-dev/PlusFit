@@ -11,7 +11,10 @@ import com.plusappslc.plusfit.repository.Resource
 
 private const val TAG = "CadastroUsuarioViewModel"
 
-class CadastroUsuarioViewModel(private val firebaseAuthRepository: FirebaseAuthRepository) :
+class CadastroUsuarioViewModel(
+    private val firebaseAuthRepository: FirebaseAuthRepository,
+    private val database: PlusFitDataBase
+) :
     ViewModel() {
 
     var passwordVisible = mutableStateOf(false)

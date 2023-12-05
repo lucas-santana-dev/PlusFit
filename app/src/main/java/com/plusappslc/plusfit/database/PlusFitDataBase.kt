@@ -6,10 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.plusappslc.plusfit.data.Aluno
+import com.plusappslc.plusfit.data.User
 import com.plusappslc.plusfit.database.converters.Converters
 
 @Database(
-    entities = [Aluno::class],
+    entities = [Aluno::class, User::class],
     version = 1
 )
 @TypeConverters(
