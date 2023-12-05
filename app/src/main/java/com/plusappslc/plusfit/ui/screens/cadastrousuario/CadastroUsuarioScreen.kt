@@ -34,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -45,16 +46,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.plusappslc.plusfit.R
+import com.plusappslc.plusfit.data.User
+import com.plusappslc.plusfit.database.PlusFitDataBase
+import com.plusappslc.plusfit.ui.theme.PlusFitTheme
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun CadastroUsuarioSceen(navController: NavController) {
+    val context = LocalContext.current
     val viewmodel = koinViewModel<CadastroUsuarioViewModel>()
     val lifecycleOwner = LocalLifecycleOwner.current
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
+    val userDao = PlusFitDataBase.getDatabase(context).userDao()
     Scaffold(
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState)
@@ -115,6 +121,9 @@ fun CadastroUsuarioSceen(navController: NavController) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(
+                        horizontal = 16.dp
+                    )
             ) {
                 OutlinedTextField(
                     label = { Text(text = stringResource(id = R.string.abc_email)) },
@@ -142,6 +151,7 @@ fun CadastroUsuarioSceen(navController: NavController) {
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Done
                     ),
+                    modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 OutlinedTextField(
@@ -159,6 +169,7 @@ fun CadastroUsuarioSceen(navController: NavController) {
                             )
                         )
                     },
+
                     visualTransformation = if (viewmodel.passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
                     trailingIcon = {
                         IconButton(onClick = {
@@ -177,7 +188,8 @@ fun CadastroUsuarioSceen(navController: NavController) {
                             }
 
                         }
-                    }
+                    },
+                    modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 OutlinedTextField(
@@ -218,7 +230,8 @@ fun CadastroUsuarioSceen(navController: NavController) {
                                 )
                             }
                         }
-                    }
+                    },
+                    modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(10.dp))
             }
@@ -229,6 +242,7 @@ fun CadastroUsuarioSceen(navController: NavController) {
                     viewmodel.cadastrarUsuario().observe(lifecycleOwner) {
                         it?.let { recurso ->
                             if (recurso.dado) {
+
                                 navController.popBackStack()
                                 scope.launch {
                                     snackbarHostState

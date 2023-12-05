@@ -3,6 +3,9 @@ package com.plusappslc.plusfit.ui.screens.cadastrousuario
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.plusappslc.plusfit.data.User
+import com.plusappslc.plusfit.database.PlusFitDataBase
+import com.plusappslc.plusfit.database.UserDAO
 import com.plusappslc.plusfit.repository.FirebaseAuthRepository
 import com.plusappslc.plusfit.repository.Resource
 

@@ -97,6 +97,9 @@ fun LoginScreen(navController: NavController) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(
+                        horizontal = 16.dp
+                    )
             ) {
                 OutlinedTextField(
                     label = { Text(text = stringResource(id = R.string.abc_email)) },
@@ -112,7 +115,8 @@ fun LoginScreen(navController: NavController) {
                             )
                         )
                     },
-                    trailingIcon = {}
+                    trailingIcon = {},
+                    modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 OutlinedTextField(
@@ -145,7 +149,8 @@ fun LoginScreen(navController: NavController) {
                                     )
                                     )
                         }
-                    }
+                    },
+                    modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(5.dp))
             }
