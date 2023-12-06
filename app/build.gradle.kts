@@ -81,28 +81,8 @@ dependencies {
     implementation("io.insert-koin:koin-androidx-compose:3.5.0")
     implementation("io.insert-koin:koin-android:3.5.0")
 
-    val roomVersion = "2.6.1"
-    implementation("androidx.room:room-runtime:$roomVersion")
-    annotationProcessor("androidx.room:room-compiler:$roomVersion")
 
-    // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:$roomVersion")
-    // To use Kotlin Symbolic Processing (KSP)
-    ksp("androidx.room:room-compiler:$roomVersion")
-    // optional - RxJava2 support for Room
-    implementation("androidx.room:room-rxjava2:$roomVersion")
 
-    // optional - RxJava3 support for Room
-    implementation("androidx.room:room-rxjava3:$roomVersion")
-
-    // optional - Guava support for Room, including Optional and ListenableFuture
-    implementation("androidx.room:room-guava:$roomVersion")
-
-    // optional - Test helpers
-    testImplementation("androidx.room:room-testing:$roomVersion")
-
-    // optional - Paging 3 Integration
-    implementation("androidx.room:room-paging:2.6.1")
 
 
 }

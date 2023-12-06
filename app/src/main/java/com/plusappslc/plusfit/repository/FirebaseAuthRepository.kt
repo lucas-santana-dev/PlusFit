@@ -1,19 +1,12 @@
 package com.plusappslc.plusfit.repository
 
 import android.util.Log
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.room.CoroutinesRoom
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthEmailException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.plusappslc.plusfit.data.User
-import com.plusappslc.plusfit.database.PlusFitDataBase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -57,7 +50,6 @@ class FirebaseAuthRepository(private val firebaseAuth: FirebaseAuth) {
                 .addOnSuccessListener {
                     Log.i(TAG, "Usuario cadastrado com sucesso")
                     liveData.value = Resource(true, )
-                    val newUser = User(id = firebaseAuth.currentUser?.uid?:"", email)
                     CoroutineScope(IO).launch {
 
                     }

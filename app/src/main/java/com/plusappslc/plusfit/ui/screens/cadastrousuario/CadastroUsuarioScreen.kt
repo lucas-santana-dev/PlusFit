@@ -23,11 +23,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -46,21 +44,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.plusappslc.plusfit.R
-import com.plusappslc.plusfit.data.User
-import com.plusappslc.plusfit.database.PlusFitDataBase
-import com.plusappslc.plusfit.ui.theme.PlusFitTheme
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun CadastroUsuarioSceen(navController: NavController) {
-    val context = LocalContext.current
     val viewmodel = koinViewModel<CadastroUsuarioViewModel>()
     val lifecycleOwner = LocalLifecycleOwner.current
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
-    val userDao = PlusFitDataBase.getDatabase(context).userDao()
     Scaffold(
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState)
